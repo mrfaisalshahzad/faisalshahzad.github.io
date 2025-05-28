@@ -65,6 +65,22 @@
             animation: pulse 2s ease-in-out infinite alternate;
             position: relative;
             z-index: 1;
+            overflow: hidden;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .profile-initials {
+            display: block;
+        }
+
+        .profile-img.has-image .profile-initials {
+            display: none;
         }
 
         @keyframes pulse {
@@ -475,7 +491,11 @@
 <body>
     <div class="container">
         <header class="header">
-            <div class="profile-img">FS</div>
+            <div class="profile-img" id="profileImage">
+                <span class="profile-initials">FS</span>
+                <!-- Replace 'path/to/your/photo.jpg' with your actual image path -->
+                <img src="/profilepicture.jpeg" alt="Faisal Shahzad" onerror="this.style.display='none'; document.querySelector('.profile-initials').style.display='block';">
+            </div>
             <h1 class="name">Faisal Shahzad</h1>
             <p class="title">Head of Mobile Financial Services Sales</p>
             <div class="contact-info">
@@ -751,6 +771,41 @@
 
         // Add some interactive animations
         document.addEventListener('DOMContentLoaded', function() {
+            // Profile image upload functionality
+            const profileImg = document.getElementById('profileImage');
+            profileImg.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.alt = 'Faisal Shahzad';
+                            img.onerror = function() {
+                                this.style.display = 'none';
+                                document.querySelector('.profile-initials').style.display = 'block';
+                                profileImg.classList.remove('has-image');
+                            };
+                            img.onload = function() {
+                                profileImg.innerHTML = '';
+                                profileImg.appendChild(img);
+                                profileImg.classList.add('has-image');
+                            };
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                input.click();
+            });
+
+            // Add hover effect to profile image
+            profileImg.style.cursor = 'pointer';
+            profileImg.title = 'Click to upload profile picture';
+            
             // Animate statistics on load
             const statNumbers = document.querySelectorAll('.stat-number');
             statNumbers.forEach(stat => {
