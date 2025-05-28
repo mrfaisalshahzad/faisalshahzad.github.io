@@ -301,3 +301,37 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', animateOnScroll);
     animateOnScroll(); // Run once on load
 });
+
+// Add pulse animation to download button periodically
+const downloadBtn = document.querySelector('.download-cv-btn');
+if (downloadBtn) {
+    // Pulse animation every 20 seconds
+    setInterval(() => {
+        downloadBtn.classList.add('pulse');
+        setTimeout(() => {
+            downloadBtn.classList.remove('pulse');
+        }, 1000);
+    }, 20000);
+    
+    // Click effect
+    downloadBtn.addEventListener('click', function(e) {
+        // Create ripple effect
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple-effect');
+        this.appendChild(ripple);
+        
+        // Get click position
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Position ripple
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        
+        // Remove ripple after animation
+        setTimeout(() => {
+            ripple.remove();
+        }, 1000);
+    });
+}

@@ -815,3 +815,69 @@ footer {
     position: relative;
     margin-bottom: 5px;
 }
+
+/* Download CV Button */
+.download-cv-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.download-cv-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.download-cv-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent);
+    transition: all 0.5s ease;
+}
+
+.download-cv-btn:hover::before {
+    left: 100%;
+}
+
+.download-cv-btn i {
+    transition: transform 0.3s ease;
+}
+
+.download-cv-btn:hover i {
+    transform: translateY(2px);
+}
+
+/* For mobile view */
+@media (max-width: 768px) {
+    .download-cv-btn {
+        display: none; /* Or adjust as needed */
+    }
+    
+    /* Alternative: Show a simplified version in mobile menu */
+    .mobile-download-btn {
+        display: flex;
+        margin: 20px auto;
+        width: 80%;
+        justify-content: center;
+    }
+}
