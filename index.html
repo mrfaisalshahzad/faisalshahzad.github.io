@@ -1,100 +1,740 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Faisal Shahzad | Fintech Sales Leader</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faisal Shahzad - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom CSS for light/dark mode transitions and animations */
+        :root {
+            --background-light: #f8fafc; /* slate-50 */
+            --text-light: #1e293b; /* slate-800 */
+            --primary-light: #3b82f6; /* blue-500 */
+            --secondary-light: #60a5fa; /* blue-400 */
+            --card-bg-light: #ffffff;
+            --border-light: #e2e8f0; /* slate-200 */
+        }
+
+        .dark {
+            --background-light: #1a202c; /* dark background */
+            --text-light: #e2e8f0; /* light text */
+            --primary-light: #60a5fa; /* light blue */
+            --secondary-light: #93c5fd; /* lighter blue */
+            --card-bg-light: #2d3748; /* dark card background */
+            --border-light: #4a5568; /* dark border */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-light);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden; /* Prevent horizontal scroll from dynamic background */
+        }
+
+        .dark body {
+            background-color: var(--background-light);
+            color: var(--text-light);
+        }
+
+        /* Navbar specific styling */
+        .navbar {
+            background-color: var(--card-bg-light);
+            border-bottom: 1px solid var(--border-light);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dark .navbar {
+            background-color: var(--card-bg-light);
+            border-color: var(--border-light);
+        }
+
+        /* Card specific styling */
+        .card {
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--border-light);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .dark .card {
+            background-color: var(--card-bg-light);
+            border-color: var(--border-light);
+        }
+
+        /* Button styling */
+        .btn-primary {
+            background-color: var(--primary-light);
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary-light);
+        }
+
+        /* Typewriter effect */
+        .typewriter-text {
+            overflow: hidden; /* Ensures the content is not revealed until the animation */
+            border-right: .15em solid var(--primary-light); /* The typwriter cursor */
+            white-space: nowrap; /* Keeps the content on a single line */
+            margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+            letter-spacing: .05em; /* Adjust as needed */
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+
+        /* Typing animation */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Blinking cursor animation */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary-light); }
+        }
+
+        /* Skill bar animation */
+        .skill-bar-fill {
+            width: 0%; /* Initial state for animation */
+            transition: width 1.5s ease-out;
+        }
+        .skill-bar-fill.animate {
+            /* Width will be set by JS */
+        }
+
+        /* Timeline styling */
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: var(--border-light);
+        }
+        .timeline-item-dot {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+            z-index: 10;
+        }
+        .timeline-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+        .timeline-details.expanded {
+            max-height: 500px; /* Adjust as needed for content */
+        }
+
+        /* Scroll-triggered animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Dynamic background elements */
+        .background-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .dot {
+            position: absolute;
+            background-color: rgba(var(--primary-light-rgb), 0.1); /* Using rgba for transparency */
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0.1; }
+            50% { transform: translateY(-20px) translateX(10px); opacity: 0.2; }
+            100% { transform: translateY(0) translateX(0); opacity: 0.1; }
+        }
+
+        /* Carousel styling */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <div class="nav-container">
-      <div class="logo">FS</div>
-      <nav>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="#skills">Skills</a></li>
-          <li><a href="#projects">Projects</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-      <a href="Faisal_Shahzad(CV)II.pdf" download class="btn download-cv">Download CV</a>
-      <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-    </div>
-  </header>
+<body class="antialiased">
+    <div class="background-dots"></div>
 
-  <section class="hero">
-    <h1 id="typewriter"></h1>
-    <p>Driving innovation in Fintech with 15+ years of experience</p>
-    <a href="#contact" class="btn">Get in Touch</a>
-  </section>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <p>Head of MFS Sales with deep expertise in digital wallets, remittances, and product launches in the Fintech sector.</p>
-  </section>
-
-  <section id="experience">
-    <h2>Professional Experience</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <h3>Beyond ONE - Head of MFS Sales</h3>
-        <button class="toggle-details">Details</button>
-        <div class="details hidden">
-          <p>Launched FRiENDi PAY, grew revenue by 10% YoY, managed national sales team.</p>
+    <nav class="navbar p-4 shadow-sm sticky top-0 z-50 flex justify-between items-center">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <h1 class="text-2xl font-bold">Faisal Shahzad</h1>
+            <div class="flex items-center space-x-4">
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-sun text-xl dark:hidden"></i>
+                    <i class="fas fa-moon text-xl hidden dark:inline-block"></i>
+                </button>
+                <a href="Faisal_Shahzad(CV)II.pdf" download="Faisal_Shahzad_CV.pdf" class="btn-primary py-2 px-4 rounded-full font-semibold shadow-md hover:shadow-lg transition-all">
+                    Download CV <i class="fas fa-download ml-2"></i>
+                </a>
+            </div>
         </div>
-      </div>
-      <div class="timeline-item">
-        <h3>Al Rajhi Bank - Country Manager</h3>
-        <button class="toggle-details">Details</button>
-        <div class="details hidden">
-          <p>Led remittance to Pakistan, increased volume by 50%, enhanced operational processes.</p>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <section id="hero" class="text-center py-20 animate-on-scroll">
+            <img src="profilepicture.jpeg" alt="Faisal Shahzad" class="w-48 h-48 rounded-full mx-auto mb-6 object-cover border-4 border-blue-500 shadow-lg">
+
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Head of Mobile Financial Services Sales</h2>
+            <p id="typewriter-output" class="typewriter-text text-lg md:text-xl max-w-3xl mx-auto"></p>
+            <div class="mt-8 flex justify-center space-x-4">
+                <a href="#contact" class="btn-primary py-3 px-6 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all">
+                    Contact Me <i class="fas fa-envelope ml-2"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/f-shahzad" target="_blank" class="py-3 px-6 rounded-full font-semibold border border-blue-500 text-blue-500 hover:bg-blue-50 transition-colors dark:border-blue-400 dark:text-blue-400 dark:hover:bg-gray-700">
+                    LinkedIn <i class="fab fa-linkedin ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="timeline" class="py-16 animate-on-scroll">
+            <h2 class="text-3xl font-bold text-center mb-12">Experience & Education</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-center md:text-left">Professional Experience</h3>
+                    <div class="space-y-8">
+                        <div class="timeline-item card p-6 rounded-lg shadow-md animate-on-scroll">
+                            <div class="timeline-item-dot">1</div>
+                            <h4 class="text-xl font-semibold text-blue-600 dark:text-blue-400">Head of Mobile Financial Services Sales</h4>
+                            <p class="text-gray-600 dark:text-gray-300">Beyond ONE Saudi for Telecom (Previously Virgin Mobile) | August 2021 - Present</p>
+                            <button class="text-blue-500 hover:underline mt-2 text-sm toggle-details">
+                                Show Details <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                            <div class="timeline-details mt-2 text-gray-700 dark:text-gray-300">
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li>Spearheaded the successful launch of FRIENDİ PAY, a comprehensive remittance service enabling P2P transfers, merchant payments, and cross-border transactions across Saudi Arabia.</li>
+                                    <li>Built and managed a multi-channel sales network, including modern trade locations, hospitals, labor camps, and POS outlets, driving widespread adoption.</li>
+                                    <li>Designed and executed targeted sales campaigns, increasing customer acquisition and retention across diverse market segments.</li>
+                                    <li>Collaborated with the IT department and Saudi Investment Bank to refine business rules, resolve technical challenges, and align joint sales and marketing strategies.</li>
+                                    <li>Implemented commission and incentive structures, boosting team motivation and performance.</li>
+                                    <li>Conducted training programs for new hires, ensuring seamless onboarding and skill development.</li>
+                                    <li><span class="font-semibold">Key Achievements:</span> Achieved 10% net revenue growth YoY; Established FRIENDİ PAY as a leading remittance service in Saudi Arabia.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="timeline-item card p-6 rounded-lg shadow-md animate-on-scroll">
+                            <div class="timeline-item-dot">2</div>
+                            <h4 class="text-xl font-semibold text-blue-600 dark:text-blue-400">Country Manager - Remittances (KSA)</h4>
+                            <p class="text-gray-600 dark:text-gray-300">Al Rajhi Bank | April 2020 - August 2021</p>
+                            <button class="text-blue-500 hover:underline mt-2 text-sm toggle-details">
+                                Show Details <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                            <div class="timeline-details mt-2 text-gray-700 dark:text-gray-300">
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li>Oversaw remittance operations to Pakistan via online, mobile, ATM, and POS channels, ensuring seamless customer experiences.</li>
+                                    <li>Developed and executed segment-specific marketing strategies, increasing remittance volume by 50%.</li>
+                                    <li>Led a team of representatives across KSA, optimizing performance through training and targeted initiatives.</li>
+                                    <li>Enhanced customer engagement through CSR activities and promotional events, strengthening brand loyalty.</li>
+                                    <li><span class="font-semibold">Key Achievements:</span> Delivered a 50% increase in remittance volume to Pakistan within one year; Improved operational efficiency and customer satisfaction.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="timeline-item card p-6 rounded-lg shadow-md animate-on-scroll">
+                            <div class="timeline-item-dot">3</div>
+                            <h4 class="text-xl font-semibold text-blue-600 dark:text-blue-400">Sales & Marketing Specialist</h4>
+                            <p class="text-gray-600 dark:text-gray-300">QuickPay - Saudi National Bank (SNB) | February 2011 - August 2019</p>
+                            <button class="text-blue-500 hover:underline mt-2 text-sm toggle-details">
+                                Show Details <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                            <div class="timeline-details mt-2 text-gray-700 dark:text-gray-300">
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li>Managed over 190 remittance corridors, developing sales plans to cross-sell bank products and services.</li>
+                                    <li>Addressed customer inquiries and resolved issues, maintaining high satisfaction levels and improving KYC procedures.</li>
+                                    <li>Partnered with management to introduce customer-friendly policies, enhancing service delivery and operational efficiency.</li>
+                                    <li><span class="font-semibold">Key Achievements:</span> Earned multiple certifications, including Service Excellence, Anti-Money Laundering, and MoneyGram Sales Achievement; Consistently exceeded sales targets through innovative marketing strategies.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="timeline-item card p-6 rounded-lg shadow-md animate-on-scroll">
+                            <div class="timeline-item-dot">4</div>
+                            <h4 class="text-xl font-semibold text-blue-600 dark:text-blue-400">Sales Team Manager</h4>
+                            <p class="text-gray-600 dark:text-gray-300">Creative Activation Est (MoneyGram) | September 2019 - April 2020</p>
+                            <button class="text-blue-500 hover:underline mt-2 text-sm toggle-details">
+                                Show Details <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                            <div class="timeline-details mt-2 text-gray-700 dark:text-gray-300">
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li>Designed and executed marketing campaigns to promote MoneyGram services among key nationalities.</li>
+                                    <li>Conducted market intelligence to monitor FX rates and competitor activities, optimizing campaign effectiveness.</li>
+                                    <li>Strengthened relationships with agents and key communities, driving service visibility and customer engagement.</li>
+                                    <li><span class="font-semibold">Key Achievements:</span> Increased brand visibility and transaction volumes through targeted campaigns; Enhanced agent performance and customer satisfaction through training and support.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="timeline-item card p-6 rounded-lg shadow-md animate-on-scroll">
+                            <div class="timeline-item-dot">5</div>
+                            <h4 class="text-xl font-semibold text-blue-600 dark:text-blue-400">Assistant Manager - Business Development</h4>
+                            <p class="text-gray-600 dark:text-gray-300">Alamoudi Exchange Co (AEC) | November 2008 - January 2011</p>
+                            <button class="text-blue-500 hover:underline mt-2 text-sm toggle-details">
+                                Show Details <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                            <div class="timeline-details mt-2 text-gray-700 dark:text-gray-300">
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li>Identified and developed strategic remittance tie-ups in high-potential corridors (Pakistan, India, Philippines), increasing market share.</li>
+                                    <li>Designed innovative marketing plans tailored to diverse customer segments, boosting brand visibility and transaction volumes.</li>
+                                    <li>Revamped promotional materials, improving customer engagement and loyalty.</li>
+                                    <li>Trained marketing representatives, equipping them to exceed sales targets consistently.</li>
+                                    <li><span class="font-semibold">Key Achievements:</span> Achieved a perfect score in the Anti-Money Laundering Global Training Course; Enhanced customer retention and market penetration through strategic initiatives.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-center md:text-left">Education</h3>
+                    <div class="space-y-8">
+                        <div class="timeline-item card p-6 rounded-lg shadow-md animate-on-scroll">
+                            <div class="timeline-item-dot">1</div>
+                            <h4 class="text-xl font-semibold text-blue-600 dark:text-blue-400">Bachelor of Commerce (B.Com)</h4>
+                            <p class="text-gray-600 dark:text-gray-300">University of the Punjab, Lahore, Pakistan | 2004-2006</p>
+                            <button class="text-blue-500 hover:underline mt-2 text-sm toggle-details">
+                                Show Details <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                            <div class="timeline-details mt-2 text-gray-700 dark:text-gray-300">
+                                <p>Comprehensive study of commerce principles, including business, finance, and accounting.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item card p-6 rounded-lg shadow-md animate-on-scroll">
+                            <div class="timeline-item-dot">2</div>
+                            <h4 class="text-xl font-semibold text-blue-600 dark:text-blue-400">Intermediate in Computer Science (ICS)</h4>
+                            <p class="text-gray-600 dark:text-gray-300">ITM College of Commerce, Sargodha, Pakistan | 2002-2004</p>
+                            <button class="text-blue-500 hover:underline mt-2 text-sm toggle-details">
+                                Show Details <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                            <div class="timeline-details mt-2 text-gray-700 dark:text-gray-300">
+                                <p>Foundational studies in computer science and related commercial applications.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item card p-6 rounded-lg shadow-md animate-on-scroll">
+                            <div class="timeline-item-dot">3</div>
+                            <h4 class="text-xl font-semibold text-blue-600 dark:text-blue-400">Matriculation</h4>
+                            <p class="text-gray-600 dark:text-gray-300">Catholic School, Sargodha, Pakistan | 2002</p>
+                            <button class="text-blue-500 hover:underline mt-2 text-sm toggle-details">
+                                Show Details <i class="fas fa-chevron-down ml-1"></i>
+                            </button>
+                            <div class="timeline-details mt-2 text-gray-700 dark:text-gray-300">
+                                <p>Secondary education completed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-16 animate-on-scroll">
+            <h2 class="text-3xl font-bold text-center mb-12">My Skills</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Sales Strategy & Execution</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="skill-bar-fill h-2.5 rounded-full bg-blue-600" data-progress="95"></div>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Market Analysis & Insights</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="skill-bar-fill h-2.5 rounded-full bg-blue-600" data-progress="90"></div>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Team Leadership & Development</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="skill-bar-fill h-2.5 rounded-full bg-blue-600" data-progress="92"></div>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Customer Relationship Management (CRM)</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="skill-bar-fill h-2.5 rounded-full bg-blue-600" data-progress="88"></div>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Product Launch & Management</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="skill-bar-fill h-2.5 rounded-full bg-blue-600" data-progress="93"></div>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Cross-Border Payments & Remittances</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="skill-bar-fill h-2.5 rounded-full bg-blue-600" data-progress="98"></div>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Digital Wallets & Mobile Financial Services</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="skill-bar-fill h-2.5 rounded-full bg-blue-600" data-progress="96"></div>
+                    </div>
+                </div>
+                <div class="card p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Strategic Partnerships & Alliances</h3>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                        <div class="skill-bar-fill h-2.5 rounded-full bg-blue-600" data-progress="91"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="achievements" class="py-16 animate-on-scroll">
+            <h2 class="text-3xl font-bold text-center mb-12">Key Achievements</h2>
+            <div class="carousel-container relative w-full max-w-4xl mx-auto rounded-lg shadow-xl card p-8">
+                <div class="carousel-track flex">
+                    <div class="carousel-item text-center p-4">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">10% YoY Revenue Growth</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-300">Achieved 10% YoY revenue growth as Head of Mobile Financial Services Sales.</p>
+                    </div>
+                    <div class="carousel-item text-center p-4">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">50% Increase in Remittance Volume</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-300">Increased remittance volume to Pakistan by 50% as Country Manager at Al Rajhi Bank.</p>
+                    </div>
+                    <div class="carousel-item text-center p-4">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">Successful Launch of FRIENDI PAY</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-300">Successfully launched FRIENDI PAY, a leading remittance service in Saudi Arabia.</p>
+                    </div>
+                    <div class="carousel-item text-center p-4">
+                        <h3 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">Multiple Certifications</h3>
+                        <p class="text-lg text-gray-700 dark:text-gray-300">Recognized with multiple certifications for excellence in sales, service, and compliance.</p>
+                    </div>
+                </div>
+                <button id="carousel-prev" class="absolute top-1/2 left-4 -translate-y-1/2 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="carousel-next" class="absolute top-1/2 right-4 -translate-y-1/2 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 animate-on-scroll">
+            <h2 class="text-3xl font-bold text-center mb-12">Get in Touch</h2>
+            <div class="max-w-xl mx-auto card p-8 rounded-lg shadow-xl">
+                <form id="contact-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                        <p id="name-error" class="text-red-500 text-sm mt-1 hidden">Name is required.</p>
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+                        <p id="email-error" class="text-red-500 text-sm mt-1 hidden">Please enter a valid email address.</p>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Message</label>
+                        <textarea id="message" name="message" rows="5" class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required></textarea>
+                        <p id="message-error" class="text-red-500 text-sm mt-1 hidden">Message is required.</p>
+                    </div>
+                    <button type="submit" class="btn-primary w-full py-3 px-6 rounded-md font-semibold shadow-md hover:shadow-lg transition-all">
+                        Send Message <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                    <div id="form-message" class="mt-4 text-center text-green-600 dark:text-green-400 hidden"></div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-100 dark:bg-gray-800 text-center p-6 mt-12 text-gray-600 dark:text-gray-400">
+        <p>&copy; 2023 Faisal Shahzad. All rights reserved.</p>
+        <div class="flex justify-center space-x-4 mt-4">
+            <a href="mailto:mr.faisalshahzad@gmail.com" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 text-2xl">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="tel:+966539366420" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 text-2xl">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/f-shahzad" target="_blank" class="text-gray-600 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400 text-2xl">
+                <i class="fab fa-linkedin"></i>
+            </a>
         </div>
-      </div>
-      <!-- Add more timeline items as needed -->
-    </div>
-  </section>
+    </footer>
 
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills">
-      <div class="skill"><span>Sales Strategy</span><div class="bar" data-skill="95"></div></div>
-      <div class="skill"><span>Mobile Financial Services</span><div class="bar" data-skill="90"></div></div>
-      <div class="skill"><span>Cross-Border Payments</span><div class="bar" data-skill="88"></div></div>
-      <div class="skill"><span>CRM & Team Leadership</span><div class="bar" data-skill="92"></div></div>
-    </div>
-  </section>
+    <script>
+        // JavaScript for interactivity and dynamic elements
 
-  <section id="projects">
-    <h2>Achievements</h2>
-    <div class="carousel">
-      <div class="carousel-track">
-        <div class="carousel-item">🎯 Launched FRiENDi PAY</div>
-        <div class="carousel-item">📈 Achieved 10% YoY Growth</div>
-        <div class="carousel-item">🌍 Managed 190+ Corridors</div>
-        <div class="carousel-item">🏅 AML & Compliance Certified</div>
-      </div>
-    </div>
-  </section>
+        // 1. Light/Dark Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement; // Refers to <html> tag
 
-  <section id="contact">
-    <h2>Contact Me</h2>
-    <form id="contact-form">
-      <input type="text" id="name" placeholder="Name" required />
-      <input type="email" id="email" placeholder="Email" required />
-      <textarea id="message" placeholder="Your Message" required></textarea>
-      <button type="submit" class="btn">Send</button>
-      <p id="form-status"></p>
-    </form>
-  </section>
+        // Check for saved theme preference or default to system preference
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            htmlElement.classList.add(currentTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            htmlElement.classList.add('dark');
+        }
 
-  <div class="background-elements">
-    <div class="circle"></div><div class="square"></div><div class="triangle"></div>
-  </div>
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
 
-  <footer>&copy; 2025 Faisal Shahzad</footer>
-  <script src="script.js"></script>
+        // 2. Animated Typewriter Effect
+        const typewriterText = "Results-driven Head of Sales and Fintech Leader with over 15 years of experience in Mobile Financial Services, remittances, and cross-border payments. Proven expertise in launching innovative financial products, driving revenue growth, and building high-performing sales teams. Adept at developing strategic partnerships, optimizing sales processes, and delivering customer-centric solutions. Recognized for achieving 10% YoY revenue growth and expanding market share in competitive environments. Seeking to leverage my leadership and industry expertise to drive innovation and growth in the Fintech sector.";
+        const typewriterOutput = document.getElementById('typewriter-output');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < typewriterText.length) {
+                typewriterOutput.innerHTML += typewriterText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 30); // Typing speed
+            }
+        }
+        // Start typewriter after a short delay to allow initial rendering
+        setTimeout(typeWriter, 1000);
+
+
+        // 3. Interactive Timeline with Expandable Details
+        document.querySelectorAll('.toggle-details').forEach(button => {
+            button.addEventListener('click', () => {
+                const details = button.nextElementSibling; // The .timeline-details div
+                const icon = button.querySelector('i');
+
+                if (details.classList.contains('expanded')) {
+                    details.classList.remove('expanded');
+                    button.innerHTML = 'Show Details <i class="fas fa-chevron-down ml-1"></i>';
+                } else {
+                    details.classList.add('expanded');
+                    button.innerHTML = 'Hide Details <i class="fas fa-chevron-up ml-1"></i>';
+                }
+            });
+        });
+
+        // 4. Dynamic Skill Charts with Progress Animation (on scroll)
+        const skillBars = document.querySelectorAll('.skill-bar-fill');
+        const skillsSection = document.getElementById('skills');
+
+        const animateSkillBars = (entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    skillBars.forEach(bar => {
+                        const progress = bar.dataset.progress;
+                        bar.style.width = `${progress}%`;
+                        bar.classList.add('animate'); // Add class to trigger transition
+                    });
+                    observer.unobserve(skillsSection); // Stop observing once animated
+                }
+            });
+        };
+
+        const skillObserver = new IntersectionObserver(animateSkillBars, {
+            threshold: 0.5 // Trigger when 50% of the section is visible
+        });
+        skillObserver.observe(skillsSection);
+
+
+        // 5. Project Showcase Carousel (Achievements)
+        const carouselTrack = document.querySelector('.carousel-track');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const prevButton = document.getElementById('carousel-prev');
+        const nextButton = document.getElementById('carousel-next');
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            const itemWidth = carouselItems[0].clientWidth;
+            carouselTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentIndex = (currentIndex === 0) ? carouselItems.length - 1 : currentIndex - 1;
+            updateCarousel();
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentIndex = (currentIndex === carouselItems.length - 1) ? 0 : currentIndex + 1;
+            updateCarousel();
+        });
+
+        // Update carousel on window resize
+        window.addEventListener('resize', updateCarousel);
+        // Initial update
+        updateCarousel();
+
+
+        // 6. Contact Form with Real-time Validation
+        const contactForm = document.getElementById('contact-form');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const messageInput = document.getElementById('message');
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const messageError = document.getElementById('message-error');
+        const formMessage = document.getElementById('form-message');
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(String(email).toLowerCase());
+        }
+
+        nameInput.addEventListener('input', () => {
+            if (nameInput.value.trim() === '') {
+                nameError.classList.remove('hidden');
+            } else {
+                nameError.classList.add('hidden');
+            }
+        });
+
+        emailInput.addEventListener('input', () => {
+            if (!validateEmail(emailInput.value)) {
+                emailError.classList.remove('hidden');
+            } else {
+                emailError.classList.add('hidden');
+            }
+        });
+
+        messageInput.addEventListener('input', () => {
+            if (messageInput.value.trim() === '') {
+                messageError.classList.remove('hidden');
+            } else {
+                messageError.classList.add('hidden');
+            }
+        });
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Prevent default form submission
+
+            let isValid = true;
+
+            if (nameInput.value.trim() === '') {
+                nameError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                nameError.classList.add('hidden');
+            }
+
+            if (!validateEmail(emailInput.value)) {
+                emailError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                emailError.classList.add('hidden');
+            }
+
+            if (messageInput.value.trim() === '') {
+                messageError.classList.remove('hidden');
+                isValid = false;
+            } else {
+                messageError.classList.add('hidden');
+            }
+
+            if (isValid) {
+                // In a real application, you would send this data to a server
+                // For this portfolio, we'll just show a success message
+                formMessage.textContent = 'Message sent successfully! I will get back to you soon.';
+                formMessage.classList.remove('hidden');
+                formMessage.classList.add('text-green-600');
+                formMessage.classList.remove('text-red-500');
+
+                contactForm.reset(); // Clear the form
+                setTimeout(() => {
+                    formMessage.classList.add('hidden');
+                }, 5000); // Hide message after 5 seconds
+            } else {
+                formMessage.textContent = 'Please correct the errors in the form.';
+                formMessage.classList.remove('hidden');
+                formMessage.classList.add('text-red-500');
+                formMessage.classList.remove('text-green-600');
+            }
+        });
+
+        // 7. Scroll-triggered Animations
+        const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.1 // Trigger when 10% of the element is visible
+        };
+
+        const scrollObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        }, observerOptions);
+
+        animateOnScrollElements.forEach(el => {
+            scrollObserver.observe(el);
+        });
+
+        // 8. Dynamic Background Elements (Dots)
+        const backgroundDotsContainer = document.querySelector('.background-dots');
+        const numDots = 30; // Number of dots
+
+        // Get primary color for dynamic background dots
+        const style = getComputedStyle(document.body);
+        const primaryColor = style.getPropertyValue('--primary-light');
+        // Convert to RGB for rgba usage
+        const hexToRgb = (hex) => {
+            const bigint = parseInt(hex.slice(1), 16);
+            const r = (bigint >> 16) & 255;
+            const g = (bigint >> 8) & 255;
+            const b = bigint & 255;
+            return `${r}, ${g}, ${b}`;
+        };
+        document.documentElement.style.setProperty('--primary-light-rgb', hexToRgb(primaryColor));
+
+
+        for (let i = 0; i < numDots; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.style.width = `${Math.random() * 15 + 5}px`; // Random size between 5px and 20px
+            dot.style.height = dot.style.width;
+            dot.style.left = `${Math.random() * 100}%`;
+            dot.style.top = `${Math.random() * 100}%`;
+            dot.style.animationDuration = `${Math.random() * 10 + 5}s`; // Random duration between 5s and 15s
+            dot.style.animationDelay = `${Math.random() * 5}s`; // Random delay
+            backgroundDotsContainer.appendChild(dot);
+        }
+
+    </script>
 </body>
 </html>
