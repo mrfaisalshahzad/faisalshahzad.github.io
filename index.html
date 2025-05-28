@@ -52,6 +52,16 @@
             border-color: var(--border-light);
         }
 
+        /* Mobile menu specific styling */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu.open {
+            max-height: 500px; /* Adjust as needed to fit content */
+        }
+
         /* Card specific styling */
         .card {
             background-color: var(--card-bg-light);
@@ -256,11 +266,21 @@
 <body class="antialiased">
     <div class="animated-background"></div>
 
-    <nav class="navbar p-4 shadow-sm sticky top-0 z-50 flex justify-between items-center">
+    <nav class="navbar p-4 shadow-sm sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center px-4">
             <h1 class="text-2xl font-bold">Faisal Shahzad</h1>
-            <div class="flex items-center space-x-4">
-                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+            <div class="flex items-center space-x-4 md:hidden">
+                <button id="mobile-menu-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#hero" class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Home</a>
+                <a href="#timeline" class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Experience</a>
+                <a href="#skills" class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Skills</a>
+                <a href="#achievements" class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Achievements</a>
+                <a href="#contact" class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Contact</a>
+                <button id="theme-toggle-desktop" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                     <i class="fas fa-sun text-xl dark:hidden"></i>
                     <i class="fas fa-moon text-xl hidden dark:inline-block"></i>
                 </button>
@@ -269,15 +289,30 @@
                 </a>
             </div>
         </div>
+        <div id="mobile-menu" class="mobile-menu md:hidden bg-white dark:bg-gray-800 w-full py-4 px-4 shadow-lg border-t border-gray-200 dark:border-gray-700">
+            <a href="#hero" class="block py-2 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Home</a>
+            <a href="#timeline" class="block py-2 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Experience</a>
+            <a href="#skills" class="block py-2 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Skills</a>
+            <a href="#achievements" class="block py-2 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Achievements</a>
+            <a href="#contact" class="block py-2 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors">Contact</a>
+            <button id="theme-toggle-mobile" class="block w-full text-left py-2 text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 font-medium transition-colors flex items-center">
+                <i class="fas fa-sun text-xl mr-2 dark:hidden"></i>
+                <i class="fas fa-moon text-xl mr-2 hidden dark:inline-block"></i>
+                Toggle Theme
+            </button>
+            <a href="Faisal_Shahzad(CV)II.pdf" download="Faisal_Shahzad_CV.pdf" class="btn-primary w-full text-center py-2 px-4 rounded-full font-semibold shadow-md hover:shadow-lg transition-all mt-4">
+                Download CV <i class="fas fa-download ml-2"></i>
+            </a>
+        </div>
     </nav>
 
     <main class="container mx-auto px-4 py-8">
         <section id="hero" class="text-center py-20 animate-on-scroll">
-            <img src="profilepicture.jpeg" alt="Faisal Shahzad" class="w-48 h-48 rounded-full mx-auto mb-6 object-cover border-4 border-blue-500 shadow-lg">
+            <img src="https://placehold.co/200x200/cccccc/ffffff?text=Your+Photo" alt="Faisal Shahzad" class="w-48 h-48 rounded-full mx-auto mb-6 object-cover border-4 border-blue-500 shadow-lg">
 
             <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Head of Mobile Financial Services Sales</h2>
             <p id="typewriter-output" class="typewriter-text text-lg md:text-xl max-w-3xl mx-auto"></p>
-            <div class="mt-8 flex justify-center space-x-4">
+            <div class="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
                 <a href="#contact" class="btn-primary py-3 px-6 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all">
                     Contact Me <i class="fas fa-envelope ml-2"></i>
                 </a>
@@ -574,26 +609,44 @@
         // JavaScript for interactivity and dynamic elements
 
         // 1. Light/Dark Mode Toggle
-        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleDesktop = document.getElementById('theme-toggle-desktop');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
         const htmlElement = document.documentElement; // Refers to <html> tag
+
+        // Function to apply theme
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+            localStorage.setItem('theme', theme);
+        }
 
         // Check for saved theme preference or default to system preference
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme) {
-            htmlElement.classList.add(currentTheme);
+            applyTheme(currentTheme);
         } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            htmlElement.classList.add('dark');
+            applyTheme('dark');
+        } else {
+            applyTheme('light'); // Default to light if no preference
         }
 
-        themeToggle.addEventListener('click', () => {
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
+        // Event listeners for theme toggles
+        if (themeToggleDesktop) {
+            themeToggleDesktop.addEventListener('click', () => {
+                const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+                applyTheme(newTheme);
+            });
+        }
+        if (themeToggleMobile) {
+            themeToggleMobile.addEventListener('click', () => {
+                const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+                applyTheme(newTheme);
+            });
+        }
+
 
         // 2. Animated Typewriter Effect
         const typewriterText = "Results-driven Head of Sales and Fintech Leader with over 15 years of experience in Mobile Financial Services, remittances, and cross-border payments. Proven expertise in launching innovative financial products, driving revenue growth, and building high-performing sales teams. Adept at developing strategic partnerships, optimizing sales processes, and delivering customer-centric solutions. Recognized for achieving 10% YoY revenue growth and expanding market share in competitive environments. Seeking to leverage my leadership and industry expertise to drive innovation and growth in the Fintech sector.";
@@ -839,6 +892,22 @@
                     insightContent.innerHTML = '<p class="text-red-500">Error generating insight. Please check your network connection or try again later.</p>';
                     console.error('Error calling Gemini API:', error);
                 }
+            });
+        });
+
+        // 9. Mobile Menu Toggle
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = mobileMenu.querySelectorAll('a'); // Get all links inside the mobile menu
+
+        mobileMenuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
             });
         });
 
