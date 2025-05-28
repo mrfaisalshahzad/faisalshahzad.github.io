@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faisal Shahzad - Head of Mobile Financial Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            font-size: 48px;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: pulse 2s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .name {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 25px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 25px 25px 0 0;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            position: relative;
+            min-width: 120px;
+        }
+
+        .nav-tab.active {
+            color: #667eea;
+            background: white;
+        }
+
+        .nav-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-tab.active::after {
+            width: 80%;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 40px;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transform: translateX(-50%);
+        }
+
+        .summary-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .experience-timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #667eea, #764ba2);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 80px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 18px;
+            top: 20px;
+            width: 25px;
+            height: 25px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .experience-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .experience-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .job-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .company {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .duration {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .job-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .achievements {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .achievements h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .achievements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .achievements li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .achievements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        .education-item {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #4ecdc4;
+            transition: all 0.3s ease;
+        }
+
+        .education-item:hover {
+            background: white;
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .degree {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .institution {
+            color: #4ecdc4;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) rotate(2deg);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .certifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .cert-card {
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .cert-card:hover {
+            border-color: #4ecdc4;
+            transform: scale(1.02);
+        }
+
+        .cert-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2rem;
+            }
+            
+            .title {
+                font-size: 1.2rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .tab-content {
+                padding: 20px;
+            }
+            
+            .experience-item {
+                padding-left: 60px;
+            }
+            
+            .timeline-line {
+                left: 20px;
+            }
+            
+            .timeline-dot {
+                left: 8px;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="profile-img">FS</div>
+            <h1 class="name">Faisal Shahzad</h1>
+            <p class="title">Head of Mobile Financial Services Sales</p>
+            <div class="contact-info">
+                <div class="contact-item" onclick="window.open('tel:+966539366420')">
+                    📞 +966 539366420
+                </div>
+                <div class="contact-item" onclick="window.open('mailto:mr.faisalshahzad@gmail.com')">
+                    ✉️ mr.faisalshahzad@gmail.com
+                </div>
+                <div class="contact-item" onclick="window.open('https://www.linkedin.com/in/f-shahzad', '_blank')">
+                    💼 LinkedIn Profile
+                </div>
+                <div class="contact-item">
+                    📍 Riyadh, Saudi Arabia
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <nav class="nav-tabs">
+                <button class="nav-tab active" onclick="showTab('summary')">Summary</button>
+                <button class="nav-tab" onclick="showTab('experience')">Experience</button>
+                <button class="nav-tab" onclick="showTab('skills')">Skills</button>
+                <button class="nav-tab" onclick="showTab('education')">Education</button>
+                <button class="nav-tab" onclick="showTab('achievements')">Achievements</button>
+            </nav>
+
+            <div id="summary" class="tab-content active">
+                <h2 class="section-title">Professional Summary</h2>
+                <p class="summary-text">
+                    Results-driven Head of Sales and Fintech Leader with over 15 years of experience in Mobile Financial Services, remittances, and cross-border payments. Proven expertise in launching innovative financial products, driving revenue growth, and building high-performing sales teams. Adept at developing strategic partnerships, optimizing sales processes, and delivering customer-centric solutions. Recognized for achieving 10% YoY revenue growth and expanding market share in competitive environments. Seeking to leverage my leadership and industry expertise to drive innovation and growth in the Fintech sector.
+                </p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10%</div>
+                        <div class="stat-label">YoY Revenue Growth</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50%</div>
+                        <div class="stat-label">Remittance Volume Increase</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">190+</div>
+                        <div class="stat-label">Remittance Corridors Managed</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="experience" class="tab-content">
+                <h2 class="section-title">Professional Experience</h2>
+                <div class="experience-timeline">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="experience-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-card">
+                            <h3 class="job-title">Head of Mobile Financial Services Sales</h3>
+                            <p class="company">Beyond ONE Saudi for Telecom (Previously Virgin Mobile)</p>
+                            <p class="duration">August 2021 – Present</p>
+                            <p class="job-description">
+                                Spearheaded the successful launch of FRiENDi PAY, a comprehensive remittance service enabling P2P transfers, merchant payments, and cross-border transactions across Saudi Arabia.
+                            </p>
+                            <div class="achievements">
+                                <h4>Key Achievements:</h4>
+                                <ul>
+                                    <li>Achieved 10% net revenue growth YoY through strategic sales initiatives</li>
+                                    <li>Established FRiENDi PAY as a leading remittance service in Saudi Arabia</li>
+                                    <li>Built multi-channel sales network across modern trade locations</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-card">
+                            <h3 class="job-title">Country Manager – Remittances (KSA)</h3>
+                            <p class="company">Al Rajhi Bank</p>
+                            <p class="duration">April 2020 – August 2021</p>
+                            <p class="job-description">
+                                Oversaw remittance operations to Pakistan via online, mobile, ATM, and POS channels, ensuring seamless customer experiences.
+                            </p>
+                            <div class="achievements">
+                                <h4>Key Achievements:</h4>
+                                <ul>
+                                    <li>Delivered a 50% increase in remittance volume to Pakistan within one year</li>
+                                    <li>Improved operational efficiency and customer satisfaction</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-card">
+                            <h3 class="job-title">Sales & Marketing Specialist</h3>
+                            <p class="company">QuickPay – Saudi National Bank (SNB)</p>
+                            <p class="duration">February 2011 – August 2019</p>
+                            <p class="job-description">
+                                Managed over 190 remittance corridors, developing sales plans to cross-sell bank products and services.
+                            </p>
+                            <div class="achievements">
+                                <h4>Key Achievements:</h4>
+                                <ul>
+                                    <li>Earned multiple certifications including Service Excellence and Anti-Money Laundering</li>
+                                    <li>Consistently exceeded sales targets through innovative marketing strategies</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-card">
+                            <h3 class="job-title">Sales Team Manager</h3>
+                            <p class="company">Creative Activation Est (MoneyGram)</p>
+                            <p class="duration">September 2019 – April 2020</p>
+                            <p class="job-description">
+                                Designed and executed marketing campaigns to promote MoneyGram services among key nationalities.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-card">
+                            <h3 class="job-title">Assistant Manager – Business Development</h3>
+                            <p class="company">Alamoudi Exchange Co (AEC)</p>
+                            <p class="duration">November 2008 – January 2011</p>
+                            <p class="job-description">
+                                Identified and developed strategic remittance tie-ups in high-potential corridors, increasing market share.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="skills" class="tab-content">
+                <h2 class="section-title">Core Competencies</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>Sales Strategy & Business Development</h3>
+                        <p>Strategic planning and execution for revenue growth</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Product Launch & Market Expansion</h3>
+                        <p>Successfully launched FRiENDi PAY across Saudi Arabia</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Cross-Border Payments & Remittances</h3>
+                        <p>Expert in international money transfer solutions</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Team Leadership & Performance Optimization</h3>
+                        <p>Building and managing high-performing teams</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Client Relationship Management (CRM)</h3>
+                        <p>Customer-centric approach to service delivery</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Market Analysis & Data-Driven Decision Making</h3>
+                        <p>Strategic insights through market intelligence</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Digital Wallets & Mobile Financial Services</h3>
+                        <p>Innovation in fintech and mobile payments</p>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Strategic Partnerships & Alliances</h3>
+                        <p>Building valuable business relationships</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="education" class="tab-content">
+                <h2 class="section-title">Education & Certifications</h2>
+                
+                <h3 style="margin-bottom: 20px; color: #667eea;">Education</h3>
+                <div class="education-item">
+                    <h3 class="degree">Bachelor of Commerce (B.Com)</h3>
+                    <p class="institution">University of the Punjab, Lahore, Pakistan</p>
+                    <p class="duration">2004–2006</p>
+                </div>
+                
+                <div class="education-item">
+                    <h3 class="degree">Intermediate in Computer Science (ICS)</h3>
+                    <p class="institution">ITM College of Commerce, Sargodha, Pakistan</p>
+                    <p class="duration">2002–2004</p>
+                </div>
+                
+                <div class="education-item">
+                    <h3 class="degree">Matriculation</h3>
+                    <p class="institution">Catholic School, Sargodha, Pakistan</p>
+                    <p class="duration">2002</p>
+                </div>
+
+                <h3 style="margin: 40px 0 20px; color: #667eea;">Professional Certifications</h3>
+                <div class="certifications-grid">
+                    <div class="cert-card">
+                        <h4 class="cert-title">Anti-Money Laundering Certificate</h4>
+                        <p>Compliance and regulatory expertise</p>
+                    </div>
+                    <div class="cert-card">
+                        <h4 class="cert-title">Service Excellence Certificate</h4>
+                        <p>Customer service and satisfaction focus</p>
+                    </div>
+                    <div class="cert-card">
+                        <h4 class="cert-title">QuickPay Training Certificate</h4>
+                        <p>Specialized payment system expertise</p>
+                    </div>
+                    <div class="cert-card">
+                        <h4 class="cert-title">MoneyGram Sales Achievement Certificate</h4>
+                        <p>Recognition for outstanding sales performance</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="achievements" class="tab-content">
+                <h2 class="section-title">Key Achievements</h2>
+                <div class="achievements" style="background: white; padding: 30px;">
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); border-radius: 10px; border-left: 5px solid #667eea;">
+                            <strong>Revenue Growth Leadership:</strong> Achieved 10% YoY revenue growth as Head of Mobile Financial Services Sales through strategic initiatives and market expansion.
+                        </li>
+                        <li style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1)); border-radius: 10px; border-left: 5px solid #ff6b6b;">
+                            <strong>Market Expansion Success:</strong> Increased remittance volume to Pakistan by 50% as Country Manager at Al Rajhi Bank within one year.
+                        </li>
+                        <li style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, rgba(78, 205, 196, 0.1), rgba(102, 126, 234, 0.1)); border-radius: 10px; border-left: 5px solid #4ecdc4;">
+                            <strong>Product Launch Excellence:</strong> Successfully launched FRiENDi PAY, establishing it as a leading remittance service in Saudi Arabia.
+                        </li>
+                        <li style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, rgba(118, 75, 162, 0.1), rgba(255, 107, 107, 0.1)); border-radius: 10px; border-left: 5px solid #764ba2;">
+                            <strong>Professional Excellence:</strong> Recognized with multiple certifications for excellence in sales, service, and compliance including perfect scores in Anti-Money Laundering training.
+                        </li>
+                        <li style="margin-bottom: 20px; padding: 20px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(78, 205, 196, 0.1)); border-radius: 10px; border-left: 5px solid #667eea;">
+                            <strong>Operational Scale:</strong> Managed over 190 remittance corridors, demonstrating expertise in complex international financial operations.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Faisal Shahzad. Driving Innovation in Mobile Financial Services.</p>
+    </footer>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate statistics on load
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const finalValue = stat.textContent;
+                let currentValue = 0;
+                const increment = parseInt(finalValue) / 50;
+                
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= parseInt(finalValue)) {
+                        stat.textContent = finalValue;
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(currentValue);
+                    }
+                }, 50);
+            });
+
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.skill-card, .experience-card, .cert-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
