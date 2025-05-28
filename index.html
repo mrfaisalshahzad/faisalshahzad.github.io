@@ -192,6 +192,69 @@
             min-width: 100%;
             box-sizing: border-box;
         }
+
+        /* Modal styling */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: var(--card-bg-light);
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal.open .modal-content {
+            transform: translateY(0);
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .modal-loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100px; /* Ensure space for loader */
+        }
+        .modal-loader .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary-light);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -214,7 +277,7 @@
 
     <main class="container mx-auto px-4 py-8">
         <section id="hero" class="text-center py-20 animate-on-scroll">
-            <img src="profilepicture.jpeg" alt="Faisal Shahzad" class="w-48 h-48 rounded-full mx-auto mb-6 object-cover border-4 border-blue-500 shadow-lg">
+            <img src="https://placehold.co/200x200/cccccc/ffffff?text=Your+Photo" alt="Faisal Shahzad" class="w-48 h-48 rounded-full mx-auto mb-6 object-cover border-4 border-blue-500 shadow-lg">
 
             <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Head of Mobile Financial Services Sales</h2>
             <p id="typewriter-output" class="typewriter-text text-lg md:text-xl max-w-3xl mx-auto"></p>
@@ -423,19 +486,31 @@
                 <div class="carousel-track flex">
                     <div class="carousel-item text-center p-4">
                         <h3 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">10% YoY Revenue Growth</h3>
-                        <p class="text-lg text-gray-700 dark:text-gray-300">Achieved 10% YoY revenue growth as Head of Mobile Financial Services Sales.</p>
+                        <p class="text-lg text-gray-700 dark:text-gray-300 achievement-text">Achieved 10% YoY revenue growth as Head of Mobile Financial Services Sales.</p>
+                        <button class="btn-primary py-2 px-4 rounded-full font-semibold mt-4 generate-insight-btn">
+                            ✨ Expand Insight
+                        </button>
                     </div>
                     <div class="carousel-item text-center p-4">
                         <h3 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">50% Increase in Remittance Volume</h3>
-                        <p class="text-lg text-gray-700 dark:text-gray-300">Increased remittance volume to Pakistan by 50% as Country Manager at Al Rajhi Bank.</p>
+                        <p class="text-lg text-gray-700 dark:text-gray-300 achievement-text">Increased remittance volume to Pakistan by 50% as Country Manager at Al Rajhi Bank.</p>
+                        <button class="btn-primary py-2 px-4 rounded-full font-semibold mt-4 generate-insight-btn">
+                            ✨ Expand Insight
+                        </button>
                     </div>
                     <div class="carousel-item text-center p-4">
                         <h3 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">Successful Launch of FRIENDI PAY</h3>
-                        <p class="text-lg text-gray-700 dark:text-gray-300">Successfully launched FRIENDI PAY, a leading remittance service in Saudi Arabia.</p>
+                        <p class="text-lg text-gray-700 dark:text-gray-300 achievement-text">Successfully launched FRIENDI PAY, a leading remittance service in Saudi Arabia.</p>
+                        <button class="btn-primary py-2 px-4 rounded-full font-semibold mt-4 generate-insight-btn">
+                            ✨ Expand Insight
+                        </button>
                     </div>
                     <div class="carousel-item text-center p-4">
                         <h3 class="text-2xl font-semibold mb-4 text-blue-600 dark:text-blue-400">Multiple Certifications</h3>
-                        <p class="text-lg text-gray-700 dark:text-gray-300">Recognized with multiple certifications for excellence in sales, service, and compliance.</p>
+                        <p class="text-lg text-gray-700 dark:text-gray-300 achievement-text">Recognized with multiple certifications for excellence in sales, service, and compliance.</p>
+                        <button class="btn-primary py-2 px-4 rounded-full font-semibold mt-4 generate-insight-btn">
+                            ✨ Expand Insight
+                        </button>
                     </div>
                 </div>
                 <button id="carousel-prev" class="absolute top-1/2 left-4 -translate-y-1/2 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600 transition-colors">
@@ -489,6 +564,15 @@
             </a>
         </div>
     </footer>
+
+    <div id="insight-modal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="close-modal">&times;</button>
+            <h3 class="text-xl font-bold mb-4">Achievement Insight</h3>
+            <div id="insight-content" class="text-gray-700 dark:text-gray-300">
+                </div>
+        </div>
+    </div>
 
     <script>
         // JavaScript for interactivity and dynamic elements
@@ -734,6 +818,63 @@
             dot.style.animationDelay = `${Math.random() * 5}s`; // Random delay
             backgroundDotsContainer.appendChild(dot);
         }
+
+        // 9. Gemini API Integration: Achievement Insight Generator
+        const insightModal = document.getElementById('insight-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const insightContent = document.getElementById('insight-content');
+        const generateInsightButtons = document.querySelectorAll('.generate-insight-btn');
+
+        closeModalBtn.addEventListener('click', () => {
+            insightModal.classList.remove('open');
+        });
+
+        insightModal.addEventListener('click', (e) => {
+            if (e.target === insightModal) {
+                insightModal.classList.remove('open');
+            }
+        });
+
+        generateInsightButtons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const achievementTextElement = event.target.previousElementSibling; // The <p> tag with the achievement text
+                const achievement = achievementTextElement.textContent;
+
+                insightContent.innerHTML = '<div class="modal-loader"><div class="spinner"></div></div><p class="text-center mt-4">Generating insight...</p>';
+                insightModal.classList.add('open');
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Expand on the following professional achievement from a resume, providing more context, challenges overcome, and impact. Focus on quantifiable results and leadership. Keep it concise, around 3-4 sentences, and professional. Achievement: "${achievement}"`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Leave as-is, Canvas will provide it at runtime
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        insightContent.innerHTML = `<p>${text}</p>`;
+                    } else {
+                        insightContent.innerHTML = '<p class="text-red-500">Failed to generate insight. Please try again.</p>';
+                        console.error('Gemini API response structure unexpected:', result);
+                    }
+                } catch (error) {
+                    insightContent.innerHTML = '<p class="text-red-500">Error generating insight. Please check your network connection or try again later.</p>';
+                    console.error('Error calling Gemini API:', error);
+                }
+            });
+        });
 
     </script>
 </body>
